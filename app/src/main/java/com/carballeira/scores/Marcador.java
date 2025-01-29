@@ -38,19 +38,26 @@ public class Marcador extends AppCompatActivity {
         ModeloMarcador datos = new ViewModelProvider(this).get(ModeloMarcador.class);
         TextView marcadorA = findViewById(R.id.scoreEquipoA);
         TextView marcadorB = findViewById(R.id.scoreEquipoB);
-        marcadorA.setText(String.valueOf(datos.getPuntosA()));
-        marcadorB.setText(String.valueOf(datos.getPuntosB()));
+        marcadorA.setText(String.valueOf(datos.getPuntosA().getValue()));
+        marcadorB.setText(String.valueOf(datos.getPuntosB().getValue()));
 
         final Observer<Integer> observador1 = new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                marcadorA.setText(String.valueOf(equipo.getMarcador()));
+                marcadorA.setText(String.valueOf(datos.getPuntosA().getValue()));
             }
         };
+
+        datos.getPuntosA().observe(this, observador1);
+
+        //TODO hacer lo del observer con los puntos B
 
         unoA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int marcadorActual = datos.getPuntosA().getValue();
+                datos.setPuntosA(marcadorActual + 1);
+                //sin live data
 //                datos.setPuntosA(datos.getPuntosA() + 1);
 //                txt_puntosA.setText(String.valueOf(datos.getPuntosA()));
             }
@@ -59,6 +66,7 @@ public class Marcador extends AppCompatActivity {
         unoB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO añadir la acción
 //                datos.setPuntosB(datos.getPuntosB() + 1);
 //                txt_puntosB.setText(String.valueOf(datos.getPuntosB()));
             }

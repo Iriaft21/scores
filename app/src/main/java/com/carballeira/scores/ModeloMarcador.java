@@ -19,9 +19,7 @@ public class ModeloMarcador extends ViewModel {
     }
 
     public void setPuntosA(int puntosA) {
-        MutableLiveData<Integer> pA = new MutableLiveData<>(puntosA);
-        pA.setValue(getPuntosA());
-
+        this.puntosA.setValue(puntosA);
     }
 
     public LiveData<Integer> getPuntosB() {
@@ -29,7 +27,7 @@ public class ModeloMarcador extends ViewModel {
     }
 
     public void setPuntosB(int puntosB) {
-        this.puntosB = puntosB;
+        this.puntosB.setValue(puntosB);
     }
 
     @Override
