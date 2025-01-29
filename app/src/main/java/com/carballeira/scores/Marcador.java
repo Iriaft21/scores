@@ -35,22 +35,32 @@ public class Marcador extends AppCompatActivity {
         Button tresA = findViewById(R.id.sumaTresA);
         Button tresB = findViewById(R.id.sumaTresB);
 
+        //Datos del ViewModel
         ModeloMarcador datos = new ViewModelProvider(this).get(ModeloMarcador.class);
         TextView marcadorA = findViewById(R.id.scoreEquipoA);
         TextView marcadorB = findViewById(R.id.scoreEquipoB);
         marcadorA.setText(String.valueOf(datos.getPuntosA().getValue()));
         marcadorB.setText(String.valueOf(datos.getPuntosB().getValue()));
 
+        //Obervador con el mismo tipo de datos que en el Mutable
+        //Un obervador por cada dato a modificar
         final Observer<Integer> observador1 = new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 marcadorA.setText(String.valueOf(datos.getPuntosA().getValue()));
             }
         };
-
+        //Se asigna el pbervador a los datos
         datos.getPuntosA().observe(this, observador1);
 
-        //TODO hacer lo del observer con los puntos B
+        final Observer<Integer> observador2 = new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                marcadorB.setText(String.valueOf(datos.getPuntosB().getValue()));
+            }
+        };
+
+        datos.getPuntosB().observe(this, observador2);
 
         unoA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +73,46 @@ public class Marcador extends AppCompatActivity {
             }
         });
 
+        dosA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int marcadorActual = datos.getPuntosA().getValue();
+                datos.setPuntosA(marcadorActual + 2);
+            }
+        });
+
+        tresA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int marcadorActual = datos.getPuntosA().getValue();
+                datos.setPuntosA(marcadorActual + 3);
+            }
+        });
+
         unoB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO añadir la acción
+                int marcadorActual = datos.getPuntosB().getValue();
+                datos.setPuntosB(marcadorActual + 1);
 //                datos.setPuntosB(datos.getPuntosB() + 1);
 //                txt_puntosB.setText(String.valueOf(datos.getPuntosB()));
             }
         });
 
+        dosB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int marcadorActual = datos.getPuntosB().getValue();
+                datos.setPuntosB(marcadorActual + 2);
+            }
+        });
+
+        tresB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int marcadorActual = datos.getPuntosB().getValue();
+                datos.setPuntosB(marcadorActual + 3);
+            }
+        });
     }
 }

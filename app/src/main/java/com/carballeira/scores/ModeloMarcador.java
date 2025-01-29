@@ -6,13 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 public class ModeloMarcador extends ViewModel {
 
-    private MutableLiveData<Integer> puntosA;
-    private MutableLiveData<Integer> puntosB;
-
-    public ModeloMarcador (){
-        this.puntosA = new MutableLiveData<>(0);
-        this.puntosB = new MutableLiveData<>(0);
-    }
+    //Inicializar el contenido y no crear constructor
+    private MutableLiveData<Integer> puntosA = new MutableLiveData<>(0);
+    private MutableLiveData<Integer> puntosB = new MutableLiveData<>(0);
 
     public LiveData<Integer> getPuntosA() {
         return puntosA;
@@ -33,8 +29,8 @@ public class ModeloMarcador extends ViewModel {
     @Override
     public String toString() {
         return "ModeloMarcador{" +
-                "puntosA=" + puntosA +
-                ", puntosB=" + puntosB +
+                "puntosA=" + puntosA.getValue() +
+                ", puntosB=" + puntosB.getValue() +
                 '}';
     }
 }
